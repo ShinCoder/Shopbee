@@ -7,10 +7,9 @@
         "plugin:react/recommended",
         "airbnb",
         "airbnb/hooks",
-        "plugin:prettier/recommended"
+        "prettier"
     ],
-    "overrides": [
-    ],
+    "overrides": [],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
@@ -21,6 +20,15 @@
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "import/prefer-default-export": "warn",
+        "no-restricted-exports": "off",
+        "eqeqeq": "off",
+        "prettier/prettier": [
+            "warn",
+            {
+                "endOfLine": "auto"
+            }
+        ]
     }
 }

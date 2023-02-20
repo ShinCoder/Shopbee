@@ -1,0 +1,16 @@
+.header-wrapper {
+    background: linear-gradient(-180deg, #f53d2d, #f63);
+
+    &.fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+    }
+}
+
+// Navbar
+.navbar-item {
+    color: var(--common-white);
+}

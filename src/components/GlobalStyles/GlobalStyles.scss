@@ -1,0 +1,24 @@
+:root {
+    --common-white: #ffffff;
+
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.flex-spacer {
+    flex: 1;
+}
