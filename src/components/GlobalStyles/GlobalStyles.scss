@@ -1,6 +1,9 @@
+@import '../../fonts/index.css';
+
 :root {
     --common-white: #ffffff;
 
+    --container-max-width: 1200px;
 }
 
 html {
@@ -11,8 +14,19 @@ body {
     font-size: 1.6rem;
 }
 
+body, html {
+    color: rgba(0, 0, 0, 0.8);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.2;
+}
+
 .d-flex {
     display: flex;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
 }
 
 .d-inline-block {
@@ -21,4 +35,9 @@ body {
 
 .flex-spacer {
     flex: 1;
+}
+
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
 }

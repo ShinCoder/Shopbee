@@ -1,3 +1,5 @@
+@import '../../utils/scss/functions';
+
 .header-wrapper {
     background: linear-gradient(-180deg, #f53d2d, #f63);
 
@@ -11,6 +13,58 @@
 }
 
 // Navbar
+.navbar-item-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.4rem;
+}
+
 .navbar-item {
     color: var(--common-white);
+    font-size: 1.3rem;
+    font-weight: 300;
+    text-decoration: none;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+
+    &.link,
+    &.hoverable {
+        &:hover {
+            color: white-with-op(0.7);
+        }
+    }
+
+    &.hoverable {
+        cursor: pointer;
+    }
+
+    &.left-seperator {
+        margin-left: 1rem;
+        position: relative;
+
+        &::after {
+            content: '';
+            height: 1.5rem;
+            position: absolute;
+            left: -0.5rem;
+            border-left: 1px solid white-with-op(0.22);
+            border-right: 1px solid white-with-op(0.22);
+        }
+    }
+}
+
+.navbar-item-start-icon {
+    margin-right: 5px;
+}
+
+.navbar-item-end-icon {
+    margin-left: 5px;
+}
+
+.navbar-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: 1rem;
 }
