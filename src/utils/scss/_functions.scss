@@ -1,3 +1,7 @@
 @function white-with-op($op) {
     @return rgba(255, 255, 255, $op);
 }
+
+@function black-with-op($op) {
+    @return rgba(0, 0, 0, $op);
+}

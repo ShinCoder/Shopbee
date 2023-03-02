@@ -4,6 +4,7 @@
     --common-white: #ffffff;
 
     --container-max-width: 1200px;
+
 }
 
 html {
@@ -18,6 +19,10 @@ body, html {
     color: rgba(0, 0, 0, 0.8);
     font-family: 'Roboto', sans-serif;
     line-height: 1.2;
+}
+
+button {
+    cursor: pointer;
 }
 
 .d-flex {
