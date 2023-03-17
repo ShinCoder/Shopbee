@@ -9,7 +9,7 @@ const cx = classNames.bind(style);
 function NavbarItem(props) {
   const { variant, children, href, hoverable, seperator, startIcon, endIcon } =
     props;
-  const Component = variant == 'text' ? 'span' : Link;
+  const Component = variant == 'default' ? 'span' : Link;
 
   return (
     <Component
@@ -37,17 +37,17 @@ function NavbarItem(props) {
 }
 
 NavbarItem.propTypes = {
-  variant: PropTypes.oneOf(['text', 'link', 'anchor']),
+  variant: PropTypes.oneOf(['default', 'link', 'anchor']),
   children: PropTypes.node.isRequired,
   href: PropTypes.string,
   hoverable: PropTypes.bool,
-  seperator: PropTypes.oneOf(['left']),
+  seperator: PropTypes.oneOf(['left', 'right']),
   startIcon: PropTypes.node,
   endIcon: PropTypes.node
 };
 
 NavbarItem.defaultProps = {
-  variant: 'text',
+  variant: 'default',
   href: null,
   hoverable: null,
   seperator: null,

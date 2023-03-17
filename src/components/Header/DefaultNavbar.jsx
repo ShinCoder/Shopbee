@@ -1,14 +1,20 @@
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 import style from './Header.module.scss';
 
 import NavbarItem from './NavbarItem';
 import Popper from '../Popper';
-import { ReactComponent as FacebookIcon } from '../../assets/FacebookIcon.svg';
-import { ReactComponent as InstagramIcon } from '../../assets/InstagramIcon.svg';
-import { ReactComponent as BellIcon } from '../../assets/BellIcon.svg';
-import { ReactComponent as CircledQuestionIcon } from '../../assets/CircledQuestionIcon.svg';
-import { ReactComponent as GlobeIcon } from '../../assets/GlobeIcon.svg';
-import { ReactComponent as AngleDownIcon } from '../../assets/AngleDownIcon.svg';
+import NotificationItem from './NotificationItem';
+
+import { ReactComponent as FacebookIcon } from '../../assets/icons/FacebookIcon.svg';
+import { ReactComponent as InstagramIcon } from '../../assets/icons/InstagramIcon.svg';
+import { ReactComponent as BellIcon } from '../../assets/icons/BellIcon.svg';
+import { ReactComponent as CircledQuestionIcon } from '../../assets/icons/CircledQuestionIcon.svg';
+import { ReactComponent as GlobeIcon } from '../../assets/icons/GlobeIcon.svg';
+import { ReactComponent as AngleDownIcon } from '../../assets/icons/AngleDownIcon.svg';
+
+import avatarPlaceholder from '../../assets/images/avatar_placeholder.png';
+
 import notificationPlaceholder from './assets/notification_placeholder.png';
 import downloadQR from './assets/download_qr.png';
 import downloadAppStore from './assets/download_appstore.png';
@@ -19,7 +25,64 @@ const cx = classNames.bind(style);
 
 function Navbar() {
   const language = { current: 'English', available: ['Tiếng Việt', 'English'] };
-  const user = null;
+  // const user = null;
+  const user = {
+    username: 'kiettran818',
+    avatar: 'https://cf.shopee.vn/file/c11d60fd27cd0ffde33d00675489cfe7_tn'
+  };
+
+  const notification = [
+    {
+      href: '/test',
+      data: {
+        image:
+          'https://down-vn.img.susercontent.com/file/07b48cd255a12f6d06e80bf0fefba28c_tn',
+        title: 'Cho Shopee biết thêm nhé!',
+        description:
+          '📝 Cập nhật đầy đủ thông tin để luôn nhận được các ưu đãi Shopee dành riêng cho bạn! Cập nhật ngay!'
+      }
+    },
+    {
+      href: '/',
+      data: {
+        image:
+          'https://down-vn.img.susercontent.com/file/sg-11134004-23030-ilamgz23spov82_tn',
+        title: 'FREESHIP ĐƠN 0Đ LẤY NGAY TẠI LIVE',
+        description:
+          '💕 Thứ 6 mặc đẹp cùng Live ✨ Freeship 0Đ cho mọi đơn thời trang 🔥 Thời trang giảm đến 50% độc quyền 👉 Deal đang chiếm sóng - Vào Live săn ngay!'
+      }
+    },
+    {
+      href: '/',
+      data: {
+        image:
+          'https://down-vn.img.susercontent.com/file/sg-11134004-23030-jwm5x45orpovb6_tn',
+        title: 'FREESHIP 55.000Đ + DEAL GIẢM 50%',
+        description:
+          '💕 Thời trang, mỹ phẩm, điện tử sale sốc ✨ Top deal bán chạy chỉ dưới 100.000Đ 👉 Rẻ chất ngất - "Gom" đã tay!'
+      }
+    },
+    {
+      href: '/',
+      data: {
+        image:
+          'https://down-vn.img.susercontent.com/file/sg-11134004-23030-tppp27vzrpov13_tn',
+        title: 'Kiet LẤY MÃ 30.000Đ Ở ĐÂY NÈ!',
+        description:
+          '💕 Áp dụng cho đơn bất kì ✨ Bạt ngàn deal sốc giảm 50% 👉 Bạn cần sắm gì? - Click vào mua ngay!'
+      }
+    },
+    {
+      href: '/',
+      data: {
+        image:
+          'https://down-vn.img.susercontent.com/file/sg-11134004-23030-d7hdynncqpov0a_tn',
+        title: 'VOUCHER XỊN HOÀN ĐẾN 200.000 XU',
+        description:
+          '🔥 Voucher Hoàn Xu Xtra 🌈 Có sẵn trong Kho Voucher 💥 Hiệu lực 0:00 17/3/2023 - 23:59 23/3/2023  👉 Số lượng có hạn, dùng ngay bạn nhé!'
+      }
+    }
+  ];
 
   return (
     <div className='d-flex'>
@@ -30,13 +93,15 @@ function Navbar() {
         >
           Seller Center
         </NavbarItem>
-        <NavbarItem
-          variant='link'
-          href='/'
-          seperator='left'
-        >
-          Join as Seller
-        </NavbarItem>
+        {user ? null : (
+          <NavbarItem
+            variant='link'
+            href='/'
+            seperator='left'
+          >
+            Join as Seller
+          </NavbarItem>
+        )}
         <Popper
           placement='bottom-start'
           arrow={false}
@@ -96,7 +161,26 @@ function Navbar() {
         <Popper
           render={
             <div className={cx('notification-wrapper')}>
-              {user ? null : (
+              {user ? (
+                <>
+                  <div className={cx('notification-box-header')}>
+                    Recently Received Notifications
+                  </div>
+                  {notification.map((item) => (
+                    <NotificationItem
+                      key={item.data.title}
+                      href={item.href}
+                      data={item.data}
+                    />
+                  ))}
+                  <Link
+                    to='/'
+                    className={cx('notification-box-btn')}
+                  >
+                    View All
+                  </Link>
+                </>
+              ) : (
                 <div className={cx('notification-placeholder-wrapper')}>
                   <div className={cx('notification-placeholder-image-wrapper')}>
                     <img
@@ -191,9 +275,41 @@ function Navbar() {
         </Popper>
         {user ? (
           // eslint-disable-next-line react/jsx-no-useless-fragment
-          <>
-            <NavbarItem>{user.username}</NavbarItem>
-          </>
+          <div style={{ marginLeft: '1rem' }}>
+            <Popper
+              render={
+                <div className={cx('account-option-wrapper')}>
+                  <Link
+                    to='/'
+                    className={cx('account-option-item')}
+                  >
+                    My Account
+                  </Link>
+                  <Link
+                    to='/'
+                    className={cx('account-option-item')}
+                  >
+                    My Purchase
+                  </Link>
+                  <Link
+                    to='/'
+                    className={cx('account-option-item')}
+                  >
+                    Logout
+                  </Link>
+                </div>
+              }
+            >
+              <NavbarItem hoverable>
+                <img
+                  src={user.avatar || avatarPlaceholder}
+                  alt={user.username}
+                  className={cx('navbar-avatar')}
+                />
+                <span className={cx('navbar-username')}>{user.username}</span>
+              </NavbarItem>
+            </Popper>
+          </div>
         ) : (
           <div style={{ display: 'flex', marginLeft: '1rem' }}>
             <NavbarItem
