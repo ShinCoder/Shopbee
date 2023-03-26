@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 
-import Header from '../../components/Header';
+import { DefaultHeader } from '../../components/Header';
 
 function DefaultLayout({ children }) {
   return (
     <>
-      <Header fixed />
-      <div style={{ marginTop: '100px' }}>{children}</div>
+      <DefaultHeader fixed />
+      <div style={{ marginTop: '200px' }}>{children}</div>
     </>
   );
 }

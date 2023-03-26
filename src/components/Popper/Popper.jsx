@@ -8,7 +8,8 @@ import style from './Popper.module.scss';
 const cx = classNames.bind(style);
 
 function Popper(props) {
-  const { placement, children, render, arrow } = props;
+  const { placement, offset, children, render, arrow, useOwnState, isVisible } =
+    props;
 
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
@@ -18,11 +19,22 @@ function Popper(props) {
     popperElement,
     {
       placement,
-      modifiers: [{ name: 'arrow', options: { element: arrowElement } }]
+      modifiers: [
+        { name: 'arrow', options: { element: arrowElement } }
+        // { name: 'offset', options: { offset: [vOffset, hOffset] } }
+      ]
     }
   );
 
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (useOwnState) setVisible(isVisible);
+  }, [useOwnState, isVisible]);
+
+  // useEffect(() => {
+  //   console.log('render');
+  // }, []);
 
   useEffect(() => {
     const updatePopper = () => {
@@ -43,19 +55,18 @@ function Popper(props) {
       <div
         className='d-inline-block'
         ref={setReferenceElement}
-        onMouseEnter={() => setVisible(true)}
-        onMouseLeave={() => setVisible(false)}
+        onMouseEnter={useOwnState ? null : () => setVisible(true)}
+        onMouseLeave={useOwnState ? null : () => setVisible(false)}
       >
         {children}
       </div>
-
       <div
         className={cx('popper-content-wrapper')}
         ref={setPopperElement}
-        style={styles.popper}
+        style={{ ...styles.popper, '--popper-offset': `${offset}px` }}
         data-show={visible || null}
-        onMouseEnter={() => setVisible(true)}
-        onMouseLeave={() => setVisible(false)}
+        onMouseEnter={useOwnState ? null : () => setVisible(true)}
+        onMouseLeave={useOwnState ? null : () => setVisible(false)}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...attributes.popper}
       >
@@ -78,14 +89,20 @@ function Popper(props) {
 
 Popper.propTypes = {
   placement: PropTypes.oneOf(['bottom-end', 'bottom-start']),
+  offset: PropTypes.number,
   children: PropTypes.node.isRequired,
   render: PropTypes.node.isRequired,
-  arrow: PropTypes.bool
+  arrow: PropTypes.bool,
+  useOwnState: PropTypes.bool,
+  isVisible: PropTypes.bool
 };
 
 Popper.defaultProps = {
   placement: 'bottom-end',
-  arrow: true
+  offset: 0,
+  arrow: true,
+  useOwnState: false,
+  isVisible: false
 };
 
 export default Popper;

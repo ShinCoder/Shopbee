@@ -1,4 +1,11 @@
+.popper-ref-wrapper {
+    display: inline-flex;
+    flex: 1;
+}
+
 .popper-content-wrapper {
+    --popper-offset: 0;
+
     box-shadow: 0 1px 5rem 0 rgb(0 0 0 / 20%);
     border-radius: 0.2rem;
     background-color: var(--common-white);
@@ -17,6 +24,13 @@
     box-shadow: 0 1px 5rem 0 rgb(0 0 0 / 20%);
     border-radius: 0.2rem;
     overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        background-color: transparent;
+    }
 }
 
 .popper-arrow,
@@ -37,18 +51,58 @@
     transform: rotate(45deg);
 }
 
-.popper-content-wrapper[data-popper-placement^='top']>.popper-arrow {
-    bottom: -4px;
+.popper-content-wrapper[data-popper-placement^='top'] {
+    margin-bottom: var(--popper-offset);
+
+    >.popper-arrow {
+        bottom: -4px;
+    }
+
+    .popper-content::before {
+        width: 100%;
+        height: var(--popper-offset);
+        bottom: calc(0px - var(--popper-offset)); 
+    }
 }
 
-.popper-content-wrapper[data-popper-placement^='bottom']>.popper-arrow {
-    top: -4px;
+.popper-content-wrapper[data-popper-placement^='bottom'] {
+    margin-top: var(--popper-offset);
+
+    >.popper-arrow {
+        top: -4px;
+    }
+
+    .popper-content::before {
+        width: 100%;
+        height: var(--popper-offset);
+        top: calc(0px - var(--popper-offset)); 
+    }
 }
 
-.popper-content-wrapper[data-popper-placement^='left']>.popper-arrow {
-    right: -4px;
+.popper-content-wrapper[data-popper-placement^='left'] {
+    margin-right: var(--popper-offset);
+
+    >.popper-arrow {
+        right: -4px;
+    }
+
+    .popper-content::before {
+        width: var(--popper-offset);
+        height: 100%;
+        right: calc(0px - var(--popper-offset)); 
+    }
 }
 
-.popper-content-wrapper[data-popper-placement^='right']>.popper-arrow {
-    left: -4px;
+.popper-content-wrapper[data-popper-placement^='right'] {
+    margin-left: var(--popper-offset);
+    
+    >.popper-arrow {
+        left: -4px;
+    }
+
+    .popper-content::before {
+        width: var(--popper-offset);
+        height: 100%;
+        left: calc(0px - var(--popper-offset));
+    }
 }
