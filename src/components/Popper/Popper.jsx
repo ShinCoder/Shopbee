@@ -19,10 +19,7 @@ function Popper(props) {
     popperElement,
     {
       placement,
-      modifiers: [
-        { name: 'arrow', options: { element: arrowElement } }
-        // { name: 'offset', options: { offset: [vOffset, hOffset] } }
-      ]
+      modifiers: [{ name: 'arrow', options: { element: arrowElement } }]
     }
   );
 

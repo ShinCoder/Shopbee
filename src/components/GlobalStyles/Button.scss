@@ -1,0 +1,47 @@
+@import '../../utils/scss/functions';
+
+.btn {
+    width: 100%;
+    height: 4rem;
+    background-color: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    flex-direction: column;
+    color: white-with-op(0.02);
+    font-size: 14px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+    border-radius: 2px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    text-transform: uppercase;
+    outline: 0;
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+}
+
+.btn-primary {
+    color: var(--common-white);
+    background-color: #ee4d2d;
+
+    &:not(:disabled):hover {
+        opacity: 0.91;
+    }
+}
+
+.btn-blank {
+    color: black-with-op(0.87);
+    border: 1px solid black-with-op(0.26);
+    background-color: var(--common-white);
+
+    &:hover {
+        background-color: black-with-op(0.02);
+    }
+}

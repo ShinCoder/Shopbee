@@ -1,24 +1,10 @@
 import { useState } from 'react';
-import Popper from '../../components/Popper';
+import CustomInput from '../../components/CustomInput/CustomInput';
 
 function Home() {
   const [visible, setVisible] = useState(false);
 
-  return (
-    <div>
-      <Popper
-        useOwnState
-        isVisible={visible}
-        render={<div style={{ width: '100px' }}>Hello</div>}
-      >
-        <input
-          type='text'
-          onFocus={() => setVisible(true)}
-          onBlur={() => setVisible(false)}
-        />
-      </Popper>
-    </div>
-  );
+  return <div style={{ width: '500px', marginLeft: '20px' }}>home</div>;
 }
 
 export default Home;
