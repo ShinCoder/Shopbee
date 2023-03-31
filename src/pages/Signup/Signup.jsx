@@ -4,6 +4,8 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { signInWithPopup, FacebookAuthProvider } from 'firebase/auth';
+import { auth, facebookAuthProvider } from '../../services/firebase';
 import style from './Signup.module.scss';
 
 import BlankHeader from '../../components/Header/BlankHeader';
@@ -36,9 +38,26 @@ function Signup() {
     resolver: joiResolver(schema)
   });
 
-  const handleSignup = (values) => {
-    console.log(formState.errors);
+  const handleSignupWithPhone = (values) => {};
+
+  const handleLoginWithFacebook = () => {
+    signInWithPopup(auth, facebookAuthProvider)
+      .then((result) => {
+        const { user } = result;
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const { accessToken } = credential;
+        console.log(user);
+        console.log(accessToken);
+      })
+      .catch((error) => {
+        console.log(error);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const { email } = error.customData;
+        const credential = FacebookAuthProvider.credentialFromError(error);
+      });
   };
+
   return (
     <>
       <BlankHeader title='sign up' />
@@ -51,7 +70,7 @@ function Signup() {
             <form
               className={cx('signup-form')}
               autoComplete='off'
-              onSubmit={handleSubmit(handleSignup)}
+              onSubmit={handleSubmit(handleSignupWithPhone)}
             >
               <div className={cx('form-title')}>Sign up</div>
               <div className={cx('form-content')}>
@@ -77,6 +96,7 @@ function Signup() {
                   <button
                     type='button'
                     className='btn btn-blank'
+                    onClick={handleLoginWithFacebook}
                   >
                     <ColoredFacebookIcon />
                     <span>Facebook</span>
@@ -107,7 +127,7 @@ function Signup() {
                 </div>
               </div>
               <div className={cx('signup-footer')}>
-                {'Have an Account ? '}{' '}
+                {'Have an account ? '}{' '}
                 <Link
                   to='login'
                   style={{ color: '#ee4d2d', fontWeight: '500' }}

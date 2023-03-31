@@ -1,7 +1,9 @@
 import routes from './routes';
+import firebase from './firebase';
 
 const config = {
-  routes
+  routes,
+  firebase
 };
 
 export default config;
