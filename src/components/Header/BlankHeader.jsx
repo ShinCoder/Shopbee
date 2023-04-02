@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import style from './Header.module.scss';
+import config from '../../config';
 
 import { ReactComponent as ShopeeLogo } from '../../assets/images/shopee_logo.svg';
 
@@ -14,7 +15,7 @@ function BlankHeader(props) {
       <div className='container w-100 d-flex justify-content-between'>
         <div className='d-flex'>
           <Link
-            to='/'
+            to={config.routes.home}
             className={cx('blank-header-logo-wrapper')}
           >
             <ShopeeLogo className={cx('blank-header-logo')} />

@@ -30,6 +30,7 @@
                 "endOfLine": "auto"
             }
         ],
-        "react/forbid-prop-types":"off"
+        "react/forbid-prop-types": "off",
+        "default-param-last": "warn"
     }
 }

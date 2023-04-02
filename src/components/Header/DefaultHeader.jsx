@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import style from './Header.module.scss';
+import config from '../../config';
 
 import Navbar from './DefaultNavbar';
 import Searchbar from './components/Searchbar';
@@ -17,7 +18,7 @@ function DefaultHeader({ fixed }) {
         <Navbar />
         <div className={cx('header-with-search')}>
           <Link
-            to='/'
+            to={config.routes.home}
             className={cx('header-logo-wrapper')}
           >
             <ShopeeLogo className={cx('header-logo')} />

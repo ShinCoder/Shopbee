@@ -3,10 +3,13 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signInWithPopup, FacebookAuthProvider } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import * as userActions from '../../redux/actions/User';
 import { auth, facebookAuthProvider } from '../../services/firebase';
 import style from './Signup.module.scss';
+import config from '../../config';
 
 import BlankHeader from '../../components/Header/BlankHeader';
 import CustomInput from '../../components/CustomInput/CustomInput';
@@ -19,6 +22,11 @@ const cx = classNames.bind(style);
 function Signup() {
   const backgroundBanner =
     'https://down-vn.img.susercontent.com/file/sg-11134004-23030-vhzme1v5qvov4a';
+
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  console.log(currentUser);
 
   const schema = useMemo(
     () =>
@@ -44,18 +52,10 @@ function Signup() {
     signInWithPopup(auth, facebookAuthProvider)
       .then((result) => {
         const { user } = result;
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const { accessToken } = credential;
-        console.log(user);
-        console.log(accessToken);
+        dispatch(userActions.setUser(user.displayName));
+        navigate(config.routes.home);
       })
-      .catch((error) => {
-        console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const { email } = error.customData;
-        const credential = FacebookAuthProvider.credentialFromError(error);
-      });
+      .catch((error) => {});
   };
 
   return (
