@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useState, memo } from 'react';
+import { useState, memo, useRef } from 'react';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import style from './CustomInput.module.scss';
@@ -9,7 +9,7 @@ import { ReactComponent as GreenTickIcon } from '../../assets/icons/GreenTickIco
 const cx = classNames.bind(style);
 
 function CustomInput(props) {
-  const { refName, control, placeholder, showTick } = props;
+  const { refName, control, placeholder, showTick, customOnBlur } = props;
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -36,8 +36,9 @@ function CustomInput(props) {
               placeholder={placeholder}
               onChange={onChange}
               onFocus={() => setIsFocused(true)}
-              onBlur={() => {
-                onBlur();
+              onBlur={(e) => {
+                onBlur(e);
+                customOnBlur(e);
                 setIsFocused(false);
               }}
               ref={ref}
@@ -59,12 +60,14 @@ CustomInput.propTypes = {
   refName: PropTypes.string.isRequired,
   control: PropTypes.object.isRequired,
   placeholder: PropTypes.string,
-  showTick: PropTypes.bool
+  showTick: PropTypes.bool,
+  customOnBlur: PropTypes.func
 };
 
 CustomInput.defaultProps = {
   placeholder: '',
-  showTick: false
+  showTick: false,
+  customOnBlur: () => {}
 };
 
 export default memo(CustomInput);

@@ -20,17 +20,13 @@ html {
 }
 
 body {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 body, html {
     color: rgba(0, 0, 0, 0.8);
     font-family: 'Roboto', sans-serif;
     line-height: 1.2;
-}
-
-button {
-    cursor: pointer;
 }
 
 a {
@@ -41,13 +37,19 @@ a {
     }
 }
 
-.d-flex {
-    display: flex;
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.flex-center {
-    justify-content: center;
-    align-items: center;
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.d-flex {
+    display: flex;
 }
 
 .justify-content-end {
@@ -56,6 +58,10 @@ a {
 
 .justify-content-between {
     justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
 }
 
 .d-inline-block {
