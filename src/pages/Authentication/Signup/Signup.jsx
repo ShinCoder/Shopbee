@@ -2,15 +2,19 @@ import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   signInWithPopup,
   signInWithPhoneNumber,
   RecaptchaVerifier
 } from 'firebase/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as userActions from '../../../redux/actions/User';
+import {
+  ErrorToastContainer,
+  toastErrorMessage
+} from '../../../utils/toastify/error';
 import {
   auth,
   facebookAuthProvider,
@@ -36,7 +40,6 @@ function Signup() {
     'https://down-vn.img.susercontent.com/file/sg-11134004-23030-vhzme1v5qvov4a';
 
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [step, setStep] = useState(0);
@@ -79,7 +82,7 @@ function Signup() {
         auth
       );
     } catch (error) {
-      console.log(error.code);
+      toastErrorMessage(error.messages ? error.messages : error);
     }
   };
 
@@ -89,7 +92,7 @@ function Signup() {
         window.confirmationResult = confirmationResult;
       })
       .catch((error) => {
-        console.log(error);
+        toastErrorMessage(error.messages ? error.messages : error);
       });
   };
 
@@ -134,7 +137,9 @@ function Signup() {
           );
           navigate(config.routes.home);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          toastErrorMessage(error.messages ? error.messages : error);
+        });
     }
   };
 
@@ -151,7 +156,9 @@ function Signup() {
         );
         navigate(config.routes.home);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        toastErrorMessage(error.messages ? error.messages : error);
+      });
   };
 
   const handleLoginWithGoogle = () => {
@@ -167,11 +174,14 @@ function Signup() {
         );
         navigate(config.routes.home);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        toastErrorMessage(error.messages ? error.messages : error);
+      });
   };
 
   return (
     <>
+      <ErrorToastContainer />
       <BlankHeader title='sign up' />
       {step === 0 && (
         <div className={cx('signup-wrapper')}>
@@ -319,14 +329,6 @@ function Signup() {
                 </button>
               </div>
             </div>
-            <button
-              type='button'
-              onClick={() => {
-                console.log(otpCode);
-              }}
-            >
-              submit
-            </button>
           </div>
         </div>
       )}

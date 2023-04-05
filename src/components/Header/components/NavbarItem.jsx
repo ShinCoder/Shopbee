@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
@@ -55,4 +55,4 @@ NavbarItem.defaultProps = {
   endIcon: null
 };
 
-export default NavbarItem;
+export default memo(NavbarItem);

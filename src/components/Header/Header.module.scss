@@ -123,7 +123,7 @@
     border: 0;
 
     &:hover {
-        color: #ee4d2d;
+        color: var(--color-primary);
         background-color: #e8e8e8;
     }
 }
@@ -237,7 +237,7 @@
     background-color: var(--common-white);
 
     &:hover {
-        color: #ee4d2d;
+        color: var(--color-primary);
     }
 }
 
@@ -364,13 +364,20 @@
 }
 
 .searchbar-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 34px;
     min-width: 60px;
     max-width: 190px;
     color: var(--common-white);
     padding: 0 15px;
+    border-radius: 2px;
+    border: 0;
     outline: 0;
     background-color: #fb5533;
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px 0 black-with-op(0.09);
 
     &:hover {
         background-color: #fb6445;
@@ -414,6 +421,166 @@
     white-space: nowrap;
 }
 
+.header-suggestion-wrapper {
+
+}
+
+.header-suggestion-box {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 2.4rem;
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 2.4rem;
+    margin-top: 0.3rem;
+    overflow-y: clip;
+}
+
+.header-suggestion {
+    display: block;
+    height: 1.4rem;
+    color: white-with-op(0.9);
+    line-height: 1.4rem;
+    margin: 0.5rem 0;
+    margin-left: 13px;
+    overflow: visible;
+    white-space: nowrap;
+    background-color: transparent;
+
+    &:visited {
+        color: white-with-op(0.9);
+    }
+
+    &:first-child {
+        margin-left: 0;
+    }
+}
+
+// cart section 
+.header-cart-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    color: var(--common-white);
+    padding-bottom: 5px;
+    margin: 0 10px;
+}
+
+.header-cart-wrapper {
+    display: block;
+    position: relative;
+    height: 100%;
+    overflow: visible;
+}
+
+.header-cart-icon {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    fill: currentColor;
+    stroke: currentColor;
+}
+
+.header-cart-number-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    min-width: 11px;
+    height: 1.6rem;
+    color: var(--color-primary);
+    line-height: 16.8px;
+    text-align: center;
+    padding: 0 0.5rem;
+    border: 0.2rem solid var(--color-primary);
+    border-radius: 4.4rem;
+    background-color: var(--common-white);
+    box-sizing: content-box;
+}
+
+.header-cart-content-wrapper {
+    width: 40rem;
+}
+
+.header-cart-content-title {
+   display: flex;
+   align-items: center;
+   height: 4rem;
+   color: black-with-op(0.26);
+   text-transform: capitalize;
+   padding-left: 1rem;
+}
+
+.header-cart-item-wrapper {
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+
+    &:hover {
+        background-color: #F8F8F8;
+    }
+}
+
+.header-cart-item-banner {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid black-with-op(0.09);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.header-cart-item-content {
+    flex: 1;
+    color: black-with-op(0.8);
+    margin-left: 1rem;
+    overflow: hidden;
+}
+
+.header-cart-item-name {  
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    span {
+        color: var(--color-primary);
+        font-size: 1rem;
+        line-height: 1.6rem;
+        padding: 0 1px;
+        border: 1px solid;
+        border-radius: 2px;
+        margin-right: 0.5rem;
+    }
+}
+
+.header-cart-item-price {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    margin-left: 4rem;
+}
+
+.header-cart-footer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: calc(4rem + 1rem * 2);
+    font-size: 1.2rem;
+    line-height: 4rem;
+    text-align: center;
+    padding: 1rem;
+    background-color: #FDFDFD;
+}
+
+.header-cart-footer-btn {
+    height: 34px;
+    min-width: 60px;
+    padding: 0 15px;
+}
+
 // blank header
 .blank-header-wrapper {
     display: flex;
@@ -424,7 +591,7 @@
 
 .blank-header-logo-wrapper {
     height: 100%;
-    color: #ee4d2d;
+    color: var(--color-primary);
 }
 
 .blank-header-logo {
@@ -447,11 +614,11 @@
 .blank-header-help-link {
     display: flex;
     align-items: center;
-    color: #ee4d2d;
+    color: var(--color-primary);
     font-size: 1.4rem;
     margin-right: 15px;
 
     &:visited {
-        color: #ee4d2d;
+        color: var(--color-primary);
     }
 }

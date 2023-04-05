@@ -72,7 +72,7 @@ function Searchbar() {
           />
           <button
             type='submit'
-            className={cx('btn', 'searchbar-btn')}
+            className={cx('searchbar-btn')}
           >
             <MagnifierIcon
               width='14px'

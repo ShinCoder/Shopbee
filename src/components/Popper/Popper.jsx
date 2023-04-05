@@ -29,10 +29,6 @@ function Popper(props) {
     if (useOwnState) setVisible(isVisible);
   }, [useOwnState, isVisible]);
 
-  // useEffect(() => {
-  //   console.log('render');
-  // }, []);
-
   useEffect(() => {
     const updatePopper = () => {
       if (visible) {

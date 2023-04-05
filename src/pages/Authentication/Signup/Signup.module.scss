@@ -111,10 +111,10 @@
     margin-right: 0.5rem;
 
     a {
-        color: #ee4d2d;
+        color: var(--color-primary);
 
         &:visited {
-            color: #ee4d2d;
+            color: var(--color-primary);
         }
     }
 }
@@ -148,7 +148,7 @@
 }
 
 .signup-otpform--header-icon {
-    fill: #ee4d2d;
+    fill: var(--color-primary);
     width: 2.4rem;
     height: 2.4rem;
     cursor: pointer;
@@ -197,7 +197,7 @@
     margin-bottom: 0.4rem;
 
     span {
-        color: #ee4d2d;
+        color: var(--color-primary);
         cursor: pointer;
     }
 }

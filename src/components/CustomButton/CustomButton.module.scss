@@ -1,0 +1,24 @@
+.custom-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    text-transform: capitalize;
+    outline: 0;
+    border: 0;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);   
+    cursor: pointer; 
+}
+
+.primary {
+    color: var(--common-white);
+    background-color: var(--color-primary);
+
+    &:visited {
+        color: var(--common-white);
+    }
+}

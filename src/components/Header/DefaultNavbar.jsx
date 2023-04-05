@@ -16,7 +16,7 @@ import { ReactComponent as AngleDownIcon } from '../../assets/icons/AngleDownIco
 
 import avatarPlaceholder from '../../assets/images/avatar_placeholder.png';
 
-import notificationPlaceholder from './assets/notification_placeholder.png';
+import notificationPlaceholder from '../../assets/images/placeholder1.png';
 import downloadQR from './assets/download_qr.png';
 import downloadAppStore from './assets/download_appstore.png';
 import downloadGooglePlay from './assets/download_googleplay.png';
