@@ -1,11 +1,20 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from 'firebase/auth';
+import * as userActions from '../../redux/actions/User';
+import { auth } from '../../services/firebase';
 import style from './Header.module.scss';
 import config from '../../config';
 
 import NavbarItem from './components/NavbarItem';
 import Popper from '../Popper';
 import NotificationItem from './components/NotificationItem';
+
+import {
+  ErrorToastContainer,
+  toastErrorMessage
+} from '../../utils/toastify/error';
 
 import { ReactComponent as FacebookIcon } from '../../assets/icons/FacebookIcon.svg';
 import { ReactComponent as InstagramIcon } from '../../assets/icons/InstagramIcon.svg';
@@ -25,8 +34,12 @@ import downloadAppGallery from './assets/download_appgallery.png';
 const cx = classNames.bind(style);
 
 function Navbar() {
+  const userState = useSelector((state) => state.user);
+  const { user } = userState;
+  const dispatch = useDispatch();
+
   const language = { current: 'English', available: ['Tiếng Việt', 'English'] };
-  const user = null;
+  // const user = null;
   // const user = {
   //   username: 'kiettran818',
   //   avatar: 'https://cf.shopee.vn/file/c11d60fd27cd0ffde33d00675489cfe7_tn'
@@ -85,8 +98,19 @@ function Navbar() {
     }
   ];
 
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(userActions.removeUser());
+      })
+      .catch((error) =>
+        toastErrorMessage(error.messages ? error.messages : error)
+      );
+  };
+
   return (
     <div className='d-flex'>
+      <ErrorToastContainer />
       <div className={cx('navbar-item-group')}>
         <NavbarItem
           variant='anchor'
@@ -292,12 +316,13 @@ function Navbar() {
                   >
                     My Purchase
                   </Link>
-                  <Link
-                    to='/'
+                  <button
+                    type='button'
                     className={cx('account-option-item')}
+                    onClick={handleLogout}
                   >
                     Logout
-                  </Link>
+                  </button>
                 </div>
               }
             >

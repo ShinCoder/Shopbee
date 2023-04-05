@@ -1,7 +1,7 @@
 import * as userActions from '../actions/User';
 
 const initialState = {
-  user: {}
+  user: null
 };
 
 const userReducer = (state = initialState, action) => {
@@ -13,7 +13,10 @@ const userReducer = (state = initialState, action) => {
       };
     }
     case userActions.TYPE_REMOVE_USER: {
-      return state;
+      return {
+        ...state,
+        user: null
+      };
     }
     default: {
       return state;

@@ -16,7 +16,7 @@ function Home() {
         type='anchor'
         href='/test'
       >
-        Hello
+        {user.user?.username || 'hi'}
       </CustomeButton>
     </div>
   );
