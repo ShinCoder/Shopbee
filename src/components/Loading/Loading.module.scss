@@ -1,0 +1,60 @@
+@import '../../utils/scss/functions';
+
+.loading-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black-with-op(0.6);
+}
+
+.loading-dot-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.loading-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    transition: all 1s linear;
+    animation-name: loading-dot-animation;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+
+    &.second {
+        animation-delay: 0.25s;
+    }
+
+    &.third {
+        animation-delay: 0.5s;
+    }
+}
+
+@keyframes loading-dot-animation {
+    0% {
+        translate: 0;
+    }
+
+    25% {
+        translate: 0 -50px;
+    }
+
+    50% {
+        translate: 0;
+    }
+
+    100% {
+        translate: 0;
+    }
+}

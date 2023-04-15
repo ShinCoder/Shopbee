@@ -1,12 +1,13 @@
 @import '../../fonts/index.css';
 @import './Button.scss';
+@import './customBootstrap.scss';
 
 :root {
     --common-white: #ffffff;
     --color-primary: #EE4D2D;
 
     --container-max-width: 1200px;
-
+    --header-height: 11.9rem;
 }
 
 * {
@@ -22,6 +23,7 @@ html {
 
 body {
     font-size: 1.4rem;
+    background-color: #F5F5F5;
 }
 
 body, html {
@@ -79,9 +81,4 @@ input[type=number] {
 
 .flex-spacer {
     flex: 1;
-}
-
-.container {
-    max-width: var(--container-max-width);
-    margin: 0 auto;
 }

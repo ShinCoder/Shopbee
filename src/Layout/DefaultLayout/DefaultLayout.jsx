@@ -6,7 +6,7 @@ function DefaultLayout({ children }) {
   return (
     <>
       <DefaultHeader fixed />
-      <div style={{ marginTop: '200px' }}>{children}</div>
+      <div style={{ marginTop: 'var(--header-height)' }}>{children}</div>
     </>
   );
 }

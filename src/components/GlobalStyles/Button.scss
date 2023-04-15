@@ -4,7 +4,7 @@ button {
     cursor: pointer;
 }
 
-.btn {
+.my-btn {
     height: 4rem;
     background-color: transparent;
     overflow: hidden;
@@ -30,7 +30,7 @@ button {
     }
 }
 
-.btn-primary {
+.my-btn-primary {
     color: var(--common-white);
     background-color: var(--color-primary);
 
@@ -39,7 +39,7 @@ button {
     }
 }
 
-.btn-blank {
+.my-btn-blank {
     color: black-with-op(0.87);
     border: 1px solid black-with-op(0.26);
     background-color: var(--common-white);

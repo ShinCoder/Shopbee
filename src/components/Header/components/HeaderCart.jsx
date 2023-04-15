@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
+import { useSelector } from 'react-redux';
 import style from '../Header.module.scss';
 
 import Popper from '../../Popper';
@@ -11,28 +12,8 @@ import { ReactComponent as CartIcon } from '../../../assets/icons/CartIcon.svg';
 const cx = classNames.bind(style);
 
 function HeaderCart() {
-  const cartItem = [
-    {
-      product: {
-        id: 1,
-        banner:
-          'https://down-vn.img.susercontent.com/file/e1f00c1b371328527b522a741ae6c87e_tn',
-        unitPrice: 60000,
-        name: 'Loa bluetooth mini không dây,nghe nhạc,giá rẻ,công nghệ blutooth 5.0 BINTECH'
-      },
-      quantity: 2
-    },
-    {
-      product: {
-        id: 2,
-        banner:
-          'https://down-vn.img.susercontent.com/file/2e0c9d5eae545212ae2ecbf97ceaae64_tn',
-        unitPrice: 43200,
-        name: 'Ốp lưng iphone 6/ 6 PLUS/ 7/ 7 PLUS/ 8/ 8 PLUS HOA VĂN 2022'
-      },
-      quantity: 1
-    }
-  ];
+  const cartState = useSelector((state) => state.cart);
+  const cartItem = cartState?.items;
 
   return (
     <Popper
@@ -42,9 +23,10 @@ function HeaderCart() {
             Recently Added Products
           </div>
           {cartItem.map((item) => (
-            <div
+            <Link
               className={cx('header-cart-item-wrapper')}
               key={item.product.id}
+              to='/'
             >
               <div
                 className={cx('header-cart-item-banner')}
@@ -60,11 +42,11 @@ function HeaderCart() {
                   </div>
                   <div className={cx('flex-spacer')} />
                   <div className={cx('header-cart-item-price')}>
-                    {toVietnamDongFormat(item.product.unitPrice)}
+                    ₫{toVietnamDongFormat(item.product.unitPrice)}
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
           <div className={cx('header-cart-footer')}>
             <div className='flex-spacer' />

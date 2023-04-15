@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import style from '../Header.module.scss';
+import useDebounce from '../../../hooks/useDebounce';
 
 import { ReactComponent as MagnifierIcon } from '../../../assets/icons/MagnifierIcon.svg';
 
@@ -11,13 +13,31 @@ const cx = classNames.bind(style);
 
 function Searchbar() {
   const [hintBoxState, setHintBoxState] = useState(false);
-
+  const [searchString, setSearchString] = useState('');
+  const [hints, setHints] = useState([]);
+  const debounced = useDebounce(searchString, 500);
   const prefill = {
     text: 'Đăng ký và nhận voucher bạn mới đến 70k!',
     href: '/'
   };
 
-  const hints = ['a', 'b', 'c', 'd'];
+  useEffect(() => {
+    const fetchHints = () => {
+      if (debounced.trim().length > 0)
+        axios
+          .get(`https://my.api.mockaroo.com/search/hint.json?key=e9f65c40`, {
+            params: {
+              k: debounced
+            }
+          })
+          .then((data) => {
+            setHints(data.data.map((e) => e.hint));
+          })
+          .catch(() => {});
+      else setHints([]);
+    };
+    fetchHints();
+  }, [debounced]);
 
   return (
     <Popper
@@ -69,6 +89,7 @@ function Searchbar() {
             className={cx('searchbar-input')}
             onFocus={() => setHintBoxState(true)}
             onBlur={() => setHintBoxState(false)}
+            onChange={(e) => setSearchString(e.target.value)}
           />
           <button
             type='submit'

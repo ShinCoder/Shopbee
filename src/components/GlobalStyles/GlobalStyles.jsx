@@ -1,5 +1,7 @@
 import 'normalize.css/normalize.css';
 import PropTypes from 'prop-types';
+import 'react-toastify/dist/ReactToastify.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './GlobalStyles.scss';
 

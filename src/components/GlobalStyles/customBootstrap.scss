@@ -1,0 +1,22 @@
+// :root {
+//     --bootstrap-col-gutter-x: 5px;
+//     --bootstrap-col-gutter-y: 5px;
+// }
+
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+    @media only screen and (min-width: 1200px) {
+        max-width: var(--container-max-width);
+    }
+ }
+
+ .container {
+    padding-right: 0;
+    padding-left: 0;
+ }
+
+//  .col {
+//     padding-top: var(--bootstrap-col-gutter-y);
+//     padding-right: var(--bootstrap-col-gutter-x);
+//     padding-bottom: var(--bootstrap-col-gutter-y);
+//     padding-left: var(--bootstrap-col-gutter-x);
+// }

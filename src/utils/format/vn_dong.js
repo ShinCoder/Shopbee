@@ -6,5 +6,5 @@ export default function toVietnamDongFormat(number) {
     currency: 'VND'
   }).format(number);
 
-  return `₫${formated.slice(0, -2)}`;
+  return formated.slice(0, -2);
 }

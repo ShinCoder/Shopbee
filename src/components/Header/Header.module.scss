@@ -158,6 +158,10 @@
     &:hover {
         background-color: #FAFAFA;
     }
+
+    &:visited {
+        color: black-with-op(0.8);
+    }
 }
 
 // notification-item
@@ -253,7 +257,6 @@
 }
 
 .download-box-apps-wrapper {
-    width: 15rem;
     padding: 0 15px 5px;
     display: flex;
     justify-content: space-between;
@@ -322,6 +325,9 @@
     height: 100%;
     color: var(--common-white);
     padding-right: 4rem;
+    &:hover {
+        color: var(--common-white);
+    }
 }
 
 .header-logo {

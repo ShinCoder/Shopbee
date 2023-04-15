@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   signInWithPopup,
@@ -11,10 +11,7 @@ import {
 } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import * as userActions from '../../../redux/actions/User';
-import {
-  ErrorToastContainer,
-  toastErrorMessage
-} from '../../../utils/toastify/error';
+import { setError } from '../../../redux/actions/System';
 import {
   auth,
   facebookAuthProvider,
@@ -54,7 +51,7 @@ function Signup() {
     () =>
       Joi.object({
         phone_number: Joi.string()
-          // .regex(/(^(\(?\+?84\)?|0)\s*[35789])\s*(([0-9]\s*){8})\b/)
+          .regex(/(^(\(?\+?84\)?|0)\s*[35789])\s*(([0-9]\s*){8})\b/)
           .messages({
             'string.empty': 'Invalid Phone',
             'string.pattern.base': 'Invalid Phone'
@@ -68,7 +65,7 @@ function Signup() {
     resolver: joiResolver(schema)
   });
 
-  const generateRecaptcha = () => {
+  const generateRecaptcha = useCallback(() => {
     try {
       window.recaptchaVerifier = new RecaptchaVerifier(
         'recaptcha-container',
@@ -82,19 +79,22 @@ function Signup() {
         auth
       );
     } catch (error) {
-      toastErrorMessage(error.messages ? error.messages : error);
+      dispatch(setError(error.message ? error.message : error));
     }
-  };
+  }, [dispatch]);
 
-  const sendOtp = (phoneNumber) => {
-    signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
-      .then((confirmationResult) => {
-        window.confirmationResult = confirmationResult;
-      })
-      .catch((error) => {
-        toastErrorMessage(error.messages ? error.messages : error);
-      });
-  };
+  const sendOtp = useCallback(
+    (phoneNumber) => {
+      signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+        })
+        .catch((error) => {
+          dispatch(setError(error.message ? error.message : error));
+        });
+    },
+    [dispatch]
+  );
 
   const handleSignupWithPhone = (values) => {
     setCurrentPhoneNumber(values.phone_number);
@@ -119,7 +119,7 @@ function Signup() {
           sendOtp(currentPhoneNumber);
         };
     }
-  }, [currentPhoneNumber, timer]);
+  }, [currentPhoneNumber, generateRecaptcha, sendOtp, timer]);
 
   const handleOtpCodeSubmit = () => {
     if (otpCode.length === 6) {
@@ -138,7 +138,7 @@ function Signup() {
           navigate(config.routes.home);
         })
         .catch((error) => {
-          toastErrorMessage(error.messages ? error.messages : error);
+          dispatch(setError(error.message ? error.message : error));
         });
     }
   };
@@ -157,7 +157,7 @@ function Signup() {
         navigate(config.routes.home);
       })
       .catch((error) => {
-        toastErrorMessage(error.messages ? error.messages : error);
+        dispatch(setError(error.message ? error.message : error));
       });
   };
 
@@ -175,13 +175,12 @@ function Signup() {
         navigate(config.routes.home);
       })
       .catch((error) => {
-        toastErrorMessage(error.messages ? error.messages : error);
+        dispatch(setError(error.message ? error.message : error));
       });
   };
 
   return (
     <>
-      <ErrorToastContainer />
       <BlankHeader title='sign up' />
       {step === 0 && (
         <div className={cx('signup-wrapper')}>
@@ -211,7 +210,7 @@ function Signup() {
                   />
                   <button
                     type='submit'
-                    className='btn btn-primary'
+                    className='my-btn my-btn-primary'
                     disabled={!formState.isValid}
                   >
                     next
@@ -224,7 +223,7 @@ function Signup() {
                   <div className={cx('alternative-signup')}>
                     <button
                       type='button'
-                      className='btn btn-blank'
+                      className='my-btn my-btn-blank'
                       onClick={handleLoginWithFacebook}
                     >
                       <ColoredFacebookIcon />
@@ -232,7 +231,7 @@ function Signup() {
                     </button>
                     <button
                       type='button'
-                      className='btn btn-blank'
+                      className='my-btn my-btn-blank'
                       onClick={handleLoginWithGoogle}
                     >
                       <ColoredGoogleIcon />
@@ -319,7 +318,8 @@ function Signup() {
                 </div>
                 <button
                   type='button'
-                  className='btn btn-primary'
+                  className='my-btn my-btn-primary'
+                  style={{ width: '100%' }}
                   disabled={
                     typeof otpCode === 'undefined' || otpCode.length != 6
                   }

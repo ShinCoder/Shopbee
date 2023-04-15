@@ -10,11 +10,7 @@ import config from '../../config';
 import NavbarItem from './components/NavbarItem';
 import Popper from '../Popper';
 import NotificationItem from './components/NotificationItem';
-
-import {
-  ErrorToastContainer,
-  toastErrorMessage
-} from '../../utils/toastify/error';
+import { setError } from '../../redux/actions/System';
 
 import { ReactComponent as FacebookIcon } from '../../assets/icons/FacebookIcon.svg';
 import { ReactComponent as InstagramIcon } from '../../assets/icons/InstagramIcon.svg';
@@ -104,13 +100,12 @@ function Navbar() {
         dispatch(userActions.removeUser());
       })
       .catch((error) =>
-        toastErrorMessage(error.messages ? error.messages : error)
+        dispatch(setError(error.message ? error.message : error))
       );
   };
 
   return (
     <div className='d-flex'>
-      <ErrorToastContainer />
       <div className={cx('navbar-item-group')}>
         <NavbarItem
           variant='anchor'
