@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import style from './Home.module.scss';
 import { setLoading, setError } from '../../redux/actions/System';
 import ProductList from '../../components/ProductList/ProductList';
+import productService from '../../services/api/productService';
 
 const cx = classNames.bind(style);
 
@@ -12,15 +13,23 @@ function Home() {
   const dispatch = useDispatch();
   const [discovery, setDiscovery] = useState([]);
   useEffect(() => {
-    const fetchDiscovery = () => {
+    const fetchDiscovery = async () => {
       dispatch(setLoading(true));
-      axios
-        .get('https://my.api.mockaroo.com/products/discovery.json?key=e9f65c40')
-        .then((data) => setDiscovery(data.data))
-        .catch((error) =>
-          dispatch(setError(error.message ? error.message : 'Unknow error'))
-        )
-        .finally(() => dispatch(setLoading(false)));
+      try {
+        const data = await productService.getDiscovery();
+        setDiscovery(data);
+      } catch (error) {
+        dispatch(setError(error.message ? error.message : 'Unknow error'));
+      }
+      dispatch(setLoading(false));
+
+      // axios
+      //   .get('https://my.api.mockaroo.com/products/discovery.json?key=e9f65c40')
+      //   .then((data) => setDiscovery(data.data))
+      //   .catch((error) =>
+      //     dispatch(setError(error.message ? error.message : 'Unknow error'))
+      //   )
+      //   .finally(() => dispatch(setLoading(false)));
     };
 
     fetchDiscovery();

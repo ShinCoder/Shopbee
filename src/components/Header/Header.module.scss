@@ -116,6 +116,9 @@
 }
 
 .notification-placeholder-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     color: black-with-op(0.8);
     height: calc(35rem - 31rem);
     width: 50%;

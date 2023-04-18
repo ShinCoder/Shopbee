@@ -32,6 +32,7 @@
         ],
         "react/forbid-prop-types": "off",
         "default-param-last": "warn",
-        "prefer-const": "warn"
+        "prefer-const": "warn",
+        "no-nested-ternary": "off"
     }
 }

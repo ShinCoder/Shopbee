@@ -4,35 +4,41 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './ProductList.module.scss';
 import { toVietnamDongFormat } from '../../utils/format';
+import config from '../../config';
 
 const cx = classNames.bind(styles);
 
+const specialType = {
+  preferred: 'PREFERRED'
+};
+
 function ProductListCard(props) {
   const { data } = props;
+
   return (
-    <Link to={data.href}>
+    <Link to={`${config.routes.product}/${data.id}`}>
       <div className={cx('card-wrapper', 'hover-primary')}>
         <div className={cx('card-banner-wrapper')}>
-          {/* <img
+          <img
             src={data.banner}
             alt={data.title}
             className={cx('card-banner')}
-          /> */}
-          <div
+          />
+          {/* <div
             className={cx('card-banner')}
             style={{ backgroundImage: `url(${data.banner})` }}
-          />
-          {data.isSpecial && (
+          /> */}
+          {data.special && data.special.type === specialType.preferred && (
             <div className={cx('card-special-mark-wrapper')}>
               <div className={cx('card-special-mark')}>
-                <span>{data.special}</span>
+                <span>Preferred</span>
               </div>
             </div>
           )}
-          {data.isSale && (
+          {data.sale && (
             <div className={cx('card-sale-mark-wrapper')}>
               <div className={cx('card-sale-mark')}>
-                <span>{data.salePercent}</span>
+                <span>{`${data.sale}%`}</span>
                 <span>off</span>
               </div>
             </div>
@@ -48,7 +54,7 @@ function ProductListCard(props) {
               <span>₫</span>
               <span>{toVietnamDongFormat(data.price)}</span>
             </div>
-            <div className={cx('card-content-sold')}>{data.sold} sold</div>
+            <div className={cx('card-content-sold')}>{data.soldCount} sold</div>
           </div>
         </div>
         <div className={cx('card-hover-footer')}>Find Similar</div>
