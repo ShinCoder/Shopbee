@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import classNames from 'classnames/bind';
@@ -11,12 +11,22 @@ const cx = classNames.bind(styles);
 const specialType = {
   preferred: 'PREFERRED'
 };
-
 function ProductListCard(props) {
   const { data } = props;
 
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    if (e.target.name === 'find-similar-btn') {
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      navigate(`${config.routes.product}/${data.id}`);
+    }
+  };
+
   return (
-    <Link to={`${config.routes.product}/${data.id}`}>
+    <div onClick={handleClick}>
       <div className={cx('card-wrapper', 'hover-primary')}>
         <div className={cx('card-banner-wrapper')}>
           <img
@@ -25,9 +35,9 @@ function ProductListCard(props) {
             className={cx('card-banner')}
           />
           {/* <div
-            className={cx('card-banner')}
-            style={{ backgroundImage: `url(${data.banner})` }}
-          /> */}
+              className={cx('card-banner')}
+              style={{ backgroundImage: `url(${data.banner})` }}
+            /> */}
           {data.special && data.special.type === specialType.preferred && (
             <div className={cx('card-special-mark-wrapper')}>
               <div className={cx('card-special-mark')}>
@@ -57,9 +67,19 @@ function ProductListCard(props) {
             <div className={cx('card-content-sold')}>{data.soldCount} sold</div>
           </div>
         </div>
-        <div className={cx('card-hover-footer')}>Find Similar</div>
+        <button
+          type='button'
+          className={cx('card-hover-footer')}
+          name='find-similar-btn'
+          onClick={() =>
+            navigate(`${config.routes.similarProduct}?itemid=${data.id}`)
+          }
+        >
+          Find Similar
+        </button>
       </div>
-    </Link>
+    </div>
+    // </Link>
   );
 }
 

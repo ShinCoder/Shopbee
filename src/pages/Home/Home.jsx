@@ -1,4 +1,3 @@
-import axios from 'axios';
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -22,14 +21,6 @@ function Home() {
         dispatch(setError(error.message ? error.message : 'Unknow error'));
       }
       dispatch(setLoading(false));
-
-      // axios
-      //   .get('https://my.api.mockaroo.com/products/discovery.json?key=e9f65c40')
-      //   .then((data) => setDiscovery(data.data))
-      //   .catch((error) =>
-      //     dispatch(setError(error.message ? error.message : 'Unknow error'))
-      //   )
-      //   .finally(() => dispatch(setLoading(false)));
     };
 
     fetchDiscovery();
@@ -37,7 +28,10 @@ function Home() {
 
   return (
     <div className={cx('homepage-wrapper')}>
-      <section className={cx('discovery-section')}>
+      <section className={cx('discovery-section', 'container')}>
+        <div className={cx('discovery-header-wrapper')}>
+          <span className={cx('discovery-header-title')}>Daily discover</span>
+        </div>
         <ProductList dataList={discovery} />
       </section>
     </div>
