@@ -22,9 +22,9 @@ import config from '../../../config';
 import { toVietnamPhoneNumberFormat } from '../../../utils/format';
 
 import BlankHeader from '../../../components/Header/BlankHeader';
-import CustomInput from '../../../components/CustomInput/CustomInput';
+import CustomInput from '../../../components/CustomInput';
 import SignupStep from '../components/SignupStep';
-import OtpInput from '../components/OtpInput/OtpInput';
+import OtpInput from '../components/OtpInput';
 
 import { ReactComponent as ColoredFacebookIcon } from '../../../assets/icons/ColoredFacebookIcon.svg';
 import { ReactComponent as ColoredGoogleIcon } from '../../../assets/icons/ColoredGoogleIcon.svg';
@@ -35,6 +35,7 @@ const cx = classNames.bind(style);
 function Signup() {
   const backgroundBanner =
     'https://down-vn.img.susercontent.com/file/sg-11134004-23030-vhzme1v5qvov4a';
+  const backgroundColor = '#F8F1E9';
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -183,7 +184,10 @@ function Signup() {
     <>
       <BlankHeader title='sign up' />
       {step === 0 && (
-        <div className={cx('signup-wrapper')}>
+        <div
+          className={cx('signup-wrapper')}
+          style={{ backgroundColor }}
+        >
           <div
             className={cx('signup-inner-wrapper')}
             style={{ backgroundImage: `url(${backgroundBanner})` }}
